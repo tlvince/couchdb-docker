@@ -76,7 +76,7 @@ RUN set -xe \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
   done
 
-ENV COUCHDB_VERSION 1.7.0
+ENV COUCHDB_VERSION 1.7.1
 
 # download dependencies, compile and install couchdb,
 # set correct permissions, expose couchdb to the outside and disable logging to disk
@@ -91,8 +91,8 @@ RUN buildDeps=' \
     make \
   ' \
   && apt-get update && apt-get install -y --no-install-recommends $buildDeps \
-  && curl -fSL https://apache.osuosl.org/couchdb/source/$COUCHDB_VERSION/apache-couchdb-$COUCHDB_VERSION.tar.gz -o couchdb.tar.gz \
-  && curl -fSL https://www.apache.org/dist/couchdb/source/$COUCHDB_VERSION/apache-couchdb-$COUCHDB_VERSION.tar.gz.asc -o couchdb.tar.gz.asc \
+  && curl -fSL https://dist.apache.org/repos/dist/dev/couchdb/source/1.7.1/rc.1/apache-couchdb-1.7.1.tar.gz -o couchdb.tar.gz \
+  && curl -fSL https://dist.apache.org/repos/dist/dev/couchdb/source/1.7.1/rc.1/apache-couchdb-1.7.1.tar.gz.asc -o couchdb.tar.gz.asc \
   && gpg --batch --verify couchdb.tar.gz.asc couchdb.tar.gz \
   && mkdir -p /usr/src/couchdb \
   && tar -xzf couchdb.tar.gz -C /usr/src/couchdb --strip-components=1 \
